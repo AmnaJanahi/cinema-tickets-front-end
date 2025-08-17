@@ -23,7 +23,7 @@ const App = () => {
           ?
           <BookingForm  setFormIsShown={setFormIsShown}/>
           :
-          <BookingList />
+          <p>The list</p>
         
       }
     </>
