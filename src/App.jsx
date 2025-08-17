@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { PulseLoader } from "react-spinners";
 
 import BookingForm from "./components/BookingForm/BookingForm";
-
+import BookingList from "./components/BookingList/BookingList";
 
 const App = () => {
   const [formIsShown, setFormIsShown] = useState(false)
@@ -23,7 +23,7 @@ const App = () => {
           ?
           <BookingForm  setFormIsShown={setFormIsShown}/>
           :
-          <p>The list</p>
+          <BookingList />
         
       }
     </>
