@@ -1,9 +1,11 @@
 import { useState } from "react";
+import axios from "axios"
 
 import { PulseLoader } from "react-spinners";
 import { create } from "../../../lib/api";
 
-const BookingForm = () => {
+const BookingForm = ({setFormIsShown} ) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
   });
@@ -12,17 +14,24 @@ const BookingForm = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handelSubmite = async (event) => {
-    event.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault()
 
-    const response = await create(formData);
-    console.log(response);
-  };
+        if (isSubmitting) return
+        setIsSubmitting(true)
+        
+        const response = await create(formData)
+        console.log(response)
+        if (response.status === 201) {
+            setFormIsShown(false)
+        }
+        setIsSubmitting(false)
+    }
 
   return (
     <>
       <h2>Book Your Ticket</h2>
-      <form onSubmit={handelSubmite}>
+      <form onSubmit={handleSubmit}>
         <lable htmlFor="name">Name</lable>
         <input
           id="name"
