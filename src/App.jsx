@@ -8,9 +8,11 @@ import BookingList from "./components/BookingList/BookingList";
 
 const App = () => {
   const [formIsShown, setFormIsShown] = useState(false)
-
+  const [bookingToUpdate, setBookingToUpdate] = useState(null)
+  
   const handleShowFormClick = () => {
     console.log('show form button is clicked')
+    setBookingToUpdate(null)
     setFormIsShown(true)
   }
 
@@ -21,9 +23,15 @@ const App = () => {
       {
         formIsShown
           ?
-          <BookingForm  setFormIsShown={setFormIsShown}/>
+          <BookingForm 
+           setFormIsShown={setFormIsShown}
+           bookingToUpdate={bookingToUpdate} 
+           />
           :
-          <BookingList />
+          <BookingList
+          setFormIsShown = {setFormIsShown}
+          setBookingToUpdate= {setBookingToUpdate}
+          />
         
       }
     </>
