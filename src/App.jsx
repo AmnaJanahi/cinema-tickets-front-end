@@ -20,6 +20,23 @@ const App = () => {
 
   const [formIsShown, setFormIsShown] = useState(false)
 
+  function handleLogin(newToken) {
+    setToken(newToken)
+  }
+
+  function handleLogout() {
+    setToken(null)
+    localStorage.removeItem('token')
+  }
+
+  // This is how to decode the token and gget the 
+  // information that you added to the payload in your login 
+  // route in the backend
+  if (token) {
+    const decodedToken = jwtDecode(token)
+    console.log(decodedToken)
+  }
+
   const handleShowFormClick = () => {
     console.log('show form button is clicked')
     setFormIsShown(true)
@@ -27,16 +44,17 @@ const App = () => {
 
   return(
     <>
-    <h1>Welcome</h1>
-    <button onClick={handleShowFormClick}>Book your ticket</button>
-      {
-        formIsShown
-          ?
-          <BookingForm  setFormIsShown={setFormIsShown}/>
-          :
-          <BookingList />
-        
-      }
+      {token ? <LogoutButton onLogout={handleLogout} /> : null}
+      <h1>Welcome</h1>
+      <button onClick={handleShowFormClick}>Book your ticket</button>
+        {
+          formIsShown
+            ?
+            <BookingForm  setFormIsShown={setFormIsShown}/>
+            :
+            <BookingList />
+          
+        }
     </>
   )
 
