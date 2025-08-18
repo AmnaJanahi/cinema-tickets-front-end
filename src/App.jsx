@@ -7,11 +7,13 @@ import ProtectedRoute from './ProtectedRoute'
 
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { BrowserRouter as Router, Routes, Route } from 'react-router'
 
 import { PulseLoader } from "react-spinners";
 
 import BookingForm from "./components/BookingForm/BookingForm";
 import BookingList from "./components/BookingList/BookingList";
+import Home from "./components/Home/Home"
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'))
@@ -43,19 +45,34 @@ const App = () => {
   }
 
   return(
-    <>
-      {token ? <LogoutButton onLogout={handleLogout} /> : null}
-      <h1>Welcome</h1>
-      <button onClick={handleShowFormClick}>Book your ticket</button>
-        {
-          formIsShown
-            ?
-            <BookingForm  setFormIsShown={setFormIsShown}/>
-            :
-            <BookingList />
-          
-        }
-    </>
+    <Router>
+      <>
+        {token ? <LogoutButton onLogout={handleLogout} /> : null}
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/login" element={<LoginForm onLogin={handleLogin}/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+          <Route 
+            path="booking" 
+            element={
+              <ProtectedRoute>
+                <BookingList/>
+              </ProtectedRoute>
+              }
+          />
+          {/* <button onClick={handleShowFormClick}>Book your ticket</button>
+            {
+              formIsShown
+              ?
+              <BookingForm  setFormIsShown={setFormIsShown}/>
+              :
+              <BookingList />
+              
+            } */}
+
+        </Routes>
+      </>
+    </Router>
   )
 
 }
