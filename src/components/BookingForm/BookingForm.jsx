@@ -34,6 +34,7 @@ const BookingForm = () => {
         <input
           id="date"
           name="date"
+          type="date"
           onChange={handelChange}
           value={formData.date}
         />
