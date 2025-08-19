@@ -1,41 +1,20 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "axios"
+
 import { PulseLoader } from "react-spinners";
-import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
-import CinemaBooking from "../Cinema/CinemaBooking";
+import { create, updateBooking , getAllBooking as fetchAllBooking } from "../../../lib/api";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [occupied, setOccupied] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
-    movieId: "",
-    movieName: "",
-    date: "",
-    timing: "",
-    seat: []
+    name: "",
   });
 
   useEffect(() => {
-    if (formData.movieId && formData.date && formData.timing) {
-      (async () => {
-        try {
-          const res = await getOccupiedSeats(formData.movieId, formData.date, formData.timing);
-          if (res.status === 200) {
-            setOccupied(res.data.occupied);
-          } else {
-            setOccupied([]);
-          }
-        } catch (err) {
-          console.error("Error fetching occupied seats:", err);
-          setOccupied([]);
-        }
-      })();
+    if (bookingToUpdate) {
+      setFormData({ name: bookingToUpdate.name })
     }
-  }, [formData.movieId, formData.date, formData.timing]);
-
-  const handleSeatSelect = (seats) => {
-    setFormData({ ...formData, seat: seats });
-  };
+  }, [bookingToUpdate])
 
   const handelChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -55,8 +34,8 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     }
 
     if (response.status === 200 || response.status === 201) {
-      await fetchAllBooking();
-      setFormIsShown(false);
+      await fetchAllBooking()
+      setFormIsShown(false)
     }
 
     setIsSubmitting(false);
@@ -73,8 +52,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           value={formData.movieName}
           onChange={handelChange}
         />
-
-        <label htmlFor="date">Date</label>
+        <lable htmlFor="date">Date</lable>
         <input
           id="date"
           name="date"
@@ -82,19 +60,13 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           value={formData.date}
           onChange={handelChange}
         />
-
-        <label htmlFor="timing">Timing</label>
+        <lable htmlFor="timing">Timing</lable>
         <input
           id="timing"
           name="timing"
           value={formData.timing}
           onChange={handelChange}
-        />
-
-        <CinemaBooking
-          movie={{ name: formData.movieName }}
-          occupied={occupied}
-          onSeatSelect={handleSeatSelect}
+          
         />
 
         <button type="submit">
