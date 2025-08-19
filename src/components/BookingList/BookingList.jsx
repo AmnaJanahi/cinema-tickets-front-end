@@ -3,22 +3,27 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 
-import PetDeleteButton from './BookingDeleteButton'
+import BookingDeleteButton from './BookingDeleteButton'
+import { getAllBooking as fetchAllBooking } from '../../../lib/api'
 
-const BookingList = () => {
+
+const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
     const [bookings, setBookings] = useState([])
 
     const getAllBooking = async () => {
-        console.log(import.meta.env.VITE_BACKEND_URL)
-        const url = `${import.meta.env.VITE_BACKEND_URL}/booking`
-        const response = await axios.get(url)
-        console.log(response)
+        const response = await fetchAllBooking()
         setBookings(response.data)
     }
 
     useEffect(() => {
         getAllBooking()
     }, [])
+
+    const handleEditClick = (booking) => {
+        setBookingToUpdate(booking)
+        setFormIsShown(true)
+    }
+
 
     return (
         <div>
@@ -32,7 +37,9 @@ const BookingList = () => {
 
                                     <p>{booking.name}</p>
 
-                                    <PetDeleteButton
+                                    <button onClick={() => handleEditClick(booking)}>Update</button>
+
+                                    <BookingDeleteButton
                                         BookingId={booking._id}
                                         getAllBooking={getAllBooking}
                                     />

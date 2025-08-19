@@ -21,6 +21,9 @@ const App = () => {
   
 
   const [formIsShown, setFormIsShown] = useState(false)
+  const [bookingToUpdate, setBookingToUpdate] = useState(null)
+  
+
 
   function handleLogin(newToken) {
     setToken(newToken)
@@ -41,10 +44,12 @@ const App = () => {
 
   const handleShowFormClick = () => {
     console.log('show form button is clicked')
+    setBookingToUpdate(null)
     setFormIsShown(true)
   }
 
   return(
+
     <Router>
       <>
         {token ? <LogoutButton onLogout={handleLogout} /> : null}
