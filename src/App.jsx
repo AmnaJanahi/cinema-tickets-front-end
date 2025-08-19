@@ -48,8 +48,8 @@ const App = () => {
   return (
     <>
       <Router>
-        <NavBar />
-        {token ? <LogoutButton onLogout={handleLogout} /> : null}
+        <NavBar onLogout={handleLogout} />
+        {/* {token ? <LogoutButton onLogout={handleLogout} /> : null} */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
@@ -58,10 +58,11 @@ const App = () => {
             path="booking"
             element={
               <ProtectedRoute>
-                <BookingList />
+                <BookingForm />
               </ProtectedRoute>
             }
           />
+          {/* <Route path="/logout" element={<LogoutButton />} /> */}
           {/* <button onClick={handleShowFormClick}>Book your ticket</button>
             {
               formIsShown
