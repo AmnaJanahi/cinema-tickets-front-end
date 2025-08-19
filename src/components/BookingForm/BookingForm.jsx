@@ -1,86 +1,92 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
-
+import React from "react";
 import { PulseLoader } from "react-spinners";
-import { create, updateBooking , getAllBooking as fetchAllBooking } from "../../../lib/api";
+
+import {
+  create,
+  updateBooking,
+  getAllBooking as fetchAllBooking,
+} from "../../../lib/api";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    date: "",
+    timing: "",
   });
 
   useEffect(() => {
     if (bookingToUpdate) {
-      setFormData({ name: bookingToUpdate.name })
+      setFormData({ name: bookingToUpdate.name });
     }
-  }, [bookingToUpdate])
+  }, [bookingToUpdate]);
 
   const handelChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    if (isSubmitting) return
-    setIsSubmitting(true)
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
-
-    let response
+    let response;
     if (bookingToUpdate) {
-      response = await updateBooking(bookingToUpdate._id, formData)
+      response = await updateBooking(bookingToUpdate._id, formData);
     } else {
-      response = await create(formData)
+      response = await create(formData);
     }
 
     if (response.status === 200 || response.status === 201) {
-      await fetchAllBooking()
-      setFormIsShown(false)
+      setFormData({
+        name: "",
+        date: "",
+        timing: "",
+      });
+      setFormIsShown(false);
+      fetchAllBooking();
     }
 
-    setIsSubmitting(false)
-  }
+    setIsSubmitting(false);
+  };
 
   return (
     <>
       <h2>{bookingToUpdate ? "Update Your Ticket" : "Book Your Ticket"}</h2>
       <form onSubmit={handleSubmit}>
-        <lable htmlFor="name">Name</lable>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
           value={formData.name}
           onChange={handelChange}
-          
         />
-        <lable htmlFor="date">Date</lable>
+        <label htmlFor="date">Date</label>
         <input
           id="date"
           name="date"
           type="date"
-          onChange={handelChange}
           value={formData.date}
           onChange={handelChange}
-          
         />
-        <lable htmlFor="timing">Timing</lable>
+        <label htmlFor="timing">Timing</label>
         <input
           id="timing"
           name="timing"
           value={formData.timing}
           onChange={handelChange}
-          
         />
         {/* adding seats */}
         <button type="submit">
-          {
-            isSubmitting
-              ?
-              (bookingToUpdate ? "Updating..." : "Submitting...")
-              :
-              (bookingToUpdate ? "Update" : "Submit")
-          }
+          {isSubmitting
+            ? bookingToUpdate
+              ? "Updating..."
+              : "Submitting..."
+            : bookingToUpdate
+            ? "Update"
+            : "Submit"}
         </button>
 
         {isSubmitting && <PulseLoader />}

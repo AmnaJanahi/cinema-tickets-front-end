@@ -49,7 +49,7 @@ const App = () => {
     <>
       <Router>
         <NavBar onLogout={handleLogout} />
-        {/* {token ? <LogoutButton onLogout={handleLogout} /> : null} */}
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
@@ -58,11 +58,11 @@ const App = () => {
             path="booking"
             element={
               <ProtectedRoute>
-                <BookingForm />
+                <BookingForm setFormIsShown={setFormIsShown}/>
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/logout" element={<LogoutButton />} /> */}
+          
           {/* <button onClick={handleShowFormClick}>Book your ticket</button>
             {
               formIsShown
