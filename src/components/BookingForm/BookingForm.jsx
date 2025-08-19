@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
+import { useParams, useNavigate } from "react-router";
 import { PulseLoader } from "react-spinners";
 
 
@@ -7,10 +8,16 @@ import {
   create,
   updateBooking,
   getAllBooking as fetchAllBooking,
+  getAllMovie as fetchAllMovies,
 } from "../../../lib/api";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
+  const { movieId } = useParams(); 
+  const navigate = useNavigate();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [movie, setMovie] = useState(null);
+
   const [formData, setFormData] = useState({
     name: "",
     date: "",
@@ -19,6 +26,12 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
 
   useEffect(() => {
     if (bookingToUpdate) {
+       setMovie({
+        name: bookingToUpdate.name,
+        image: bookingToUpdate.image,
+        rating: bookingToUpdate.rating,
+        description: bookingToUpdate.description,
+      });
       setFormData({ name: bookingToUpdate.name });
     }
   }, [bookingToUpdate]);

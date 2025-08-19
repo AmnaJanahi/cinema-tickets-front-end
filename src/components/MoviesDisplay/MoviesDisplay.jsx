@@ -24,6 +24,7 @@ const MoviesDisplay = () => {
         {movies.map((movie) => {
           return (
             <>
+                <li key={movie._id || movie.name}></li>
               <img
                 src={movie.image}
                 style={{
@@ -43,11 +44,7 @@ const MoviesDisplay = () => {
               <button
                 type="button"
                 onClick={() =>
-                  navigate("/booking", {
-                    state: {
-                      movie
-                    },
-                  })
+                  navigate(`/booking/${m._id}`)
                 }
               >
                 Book
