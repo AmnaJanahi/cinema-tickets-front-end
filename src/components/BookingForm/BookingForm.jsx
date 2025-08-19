@@ -1,86 +1,110 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
-
+import axios from "axios";
 import { PulseLoader } from "react-spinners";
-import { create, updateBooking , getAllBooking as fetchAllBooking } from "../../../lib/api";
+import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
+import CinemaBooking from "../Cinema/CinemaBooking";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [occupied, setOccupied] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
+    movieId: "",
+    movieName: "",
+    date: "",
+    timing: "",
+    seat: []
   });
 
   useEffect(() => {
-    if (bookingToUpdate) {
-      setFormData({ name: bookingToUpdate.name })
+    if (formData.movieId && formData.date && formData.timing) {
+      (async () => {
+        try {
+          const res = await getOccupiedSeats(formData.movieId, formData.date, formData.timing);
+          if (res.status === 200) {
+            setOccupied(res.data.occupied);
+          } else {
+            setOccupied([]);
+          }
+        } catch (err) {
+          console.error("Error fetching occupied seats:", err);
+          setOccupied([]);
+        }
+      })();
     }
-  }, [bookingToUpdate])
+  }, [formData.movieId, formData.date, formData.timing]);
+
+  const handleSeatSelect = (seats) => {
+    setFormData({ ...formData, seat: seats });
+  };
 
   const handelChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    if (isSubmitting) return
-    setIsSubmitting(true)
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
-
-    let response
+    let response;
     if (bookingToUpdate) {
-      response = await updateBooking(bookingToUpdate._id, formData)
+      response = await updateBooking(bookingToUpdate._id, formData);
     } else {
-      response = await create(formData)
+      response = await create(formData);
     }
 
     if (response.status === 200 || response.status === 201) {
-      await fetchAllBooking()
-      setFormIsShown(false)
+      await fetchAllBooking();
+      setFormIsShown(false);
     }
 
-    setIsSubmitting(false)
-  }
+    setIsSubmitting(false);
+  };
 
   return (
     <>
       <h2>{bookingToUpdate ? "Update Your Ticket" : "Book Your Ticket"}</h2>
       <form onSubmit={handleSubmit}>
-        <lable htmlFor="name">Name</lable>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
-          name="name"
-          value={formData.name}
+          name="movieName"
+          value={formData.movieName}
           onChange={handelChange}
-          
         />
-        <lable htmlFor="date">Date</lable>
+
+        <label htmlFor="date">Date</label>
         <input
           id="date"
           name="date"
           type="date"
-          onChange={handelChange}
           value={formData.date}
           onChange={handelChange}
-          
         />
-        <lable htmlFor="timing">Timing</lable>
+
+        <label htmlFor="timing">Timing</label>
         <input
           id="timing"
           name="timing"
           value={formData.timing}
           onChange={handelChange}
-          
         />
-        {/* adding seats */}
+
+        <CinemaBooking
+          movie={{ name: formData.movieName }}
+          occupied={occupied}
+          onSeatSelect={handleSeatSelect}
+        />
+
         <button type="submit">
-          {
-            isSubmitting
-              ?
-              (bookingToUpdate ? "Updating..." : "Submitting...")
-              :
-              (bookingToUpdate ? "Update" : "Submit")
-          }
+          {isSubmitting
+            ? bookingToUpdate
+              ? "Updating..."
+              : "Submitting..."
+            : bookingToUpdate
+            ? "Update"
+            : "Submit"}
         </button>
 
         {isSubmitting && <PulseLoader />}
@@ -88,4 +112,5 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     </>
   );
 };
+
 export default BookingForm;

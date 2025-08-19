@@ -61,7 +61,7 @@ const App = () => {
             path="booking" 
             element={
               <ProtectedRoute>
-                <BookingList/>
+                <BookingForm/>
               </ProtectedRoute>
               }
           />
