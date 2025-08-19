@@ -25,6 +25,9 @@ const token = localStorage.getItem("token");
               <Link to="/booking">Book Tickets</Link>
             </li>
             <li>
+              <Link to="/booking-list">Tickets</Link>
+            </li>
+            <li>
               <LogoutButton onLogout={onLogout} />
             </li>
           </>
