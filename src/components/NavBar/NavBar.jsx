@@ -22,6 +22,9 @@ const token = localStorage.getItem("token");
               <Link to="/">Home</Link>
             </li>
             <li>
+              <Link to="/movie">Movies</Link>
+            </li>
+            <li>
               <Link to="/booking">Book Tickets</Link>
             </li>
             <li>
