@@ -6,13 +6,8 @@ import BookingDeleteButton from './BookingDeleteButton';
 import { getAllBooking as fetchAllBooking } from '../../../lib/api';
 
 const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
-<<<<<<< HEAD
-    
-    const [bookings, setBookings] = useState([])
-=======
     const [bookings, setBookings] = useState([]);
     const navigate = useNavigate();
->>>>>>> main
 
     const getAllBooking = async () => {
         const response = await fetchAllBooking();

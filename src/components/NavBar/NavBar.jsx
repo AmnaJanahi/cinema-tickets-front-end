@@ -10,7 +10,7 @@ const NavBar = ({ onLogout }) => {
       <div className="navbar__inner">
         <div className="logo">
           <img
-            src="../../../public/images/K_N41_Indoor_Décor_Cinema_Ticket_Wall_Sign_Theater_Media_Plaque_Room_Movie_Night_Wall_Art_Home_Decor-removebg-preview"
+            src="../../../public/images/K_N41_Indoor_Décor_Cinema_Ticket_Wall_Sign_Theater_Media_Plaque_Room_Movie_Night_Wall_Art_Home_Decor-removebg-preview.png"
             alt="Cinema Logo"
           />
         </div>

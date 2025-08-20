@@ -1,21 +1,10 @@
 import { useState, useEffect } from "react";
-
 import React from "react";
 import { useParams, useNavigate } from "react-router";
 import { PulseLoader } from "react-spinners";
-
-
-import {
-  create,
-  updateBooking,
-  getAllBooking as fetchAllBooking,
-  getAllMovie as fetchAllMovies,
-} from "../../../lib/api";
-
-import { PulseLoader } from "react-spinners";
 import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
-import { useNavigate } from "react-router";
+
 
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
