@@ -70,7 +70,7 @@ const App = () => {
             element={
               <BookingList
                 setFormIsShown={setFormIsShown}
-                bookingToUpdate={bookingToUpdate}
+      setBookingToUpdate={setBookingToUpdate}
               />
             }
           />

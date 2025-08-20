@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
 import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -12,10 +12,26 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     date: "",
     timing: "",
     seat: [],
-    movieId:""
+    movieId: "",
+    movieName: ""
   });
-  const [availableMovies,setAvailableMovies] = useState()
+
   const navigate = useNavigate();
+
+  // Populate form when editing
+  useEffect(() => {
+    if (bookingToUpdate) {
+      setFormData({
+        name: bookingToUpdate.name || "",
+        date: bookingToUpdate.date || "",
+        timing: bookingToUpdate.timing || "",
+        seat: bookingToUpdate.seat || [],
+        movieId: bookingToUpdate.movieId || "",
+        movieName: bookingToUpdate.movieName || ""
+      });
+    }
+  }, [bookingToUpdate]);
+
   useEffect(() => {
     if (formData.movieId && formData.date && formData.timing) {
       (async () => {
@@ -31,41 +47,53 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
   }, [formData.movieId, formData.date, formData.timing]);
 
   const handleSeatSelect = (seats) => setFormData({ ...formData, seat: seats });
-  const handleChange = (event) => setFormData({ ...formData, [event.target.name]: event.target.value });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "movieId") {
+      const movieName = event.target.selectedOptions[0].text;
+      setFormData({ ...formData, movieId: value, movieName });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isSubmitting) return;
 
     setIsSubmitting(true);
-    let response;
+    const submitData = {
+      name: formData.name,
+      movieId: formData.movieId,
+      movieName: formData.movieName,
+      date: formData.date,
+      timing: formData.timing,
+      seat: formData.seat
+    };
 
-    const submitData = { name: formData.movieName, movieId: formData.movieId, date: formData.date, timing: formData.timing, seat: formData.seat };
-
-    console.log('submit data',submitData)
     if (bookingToUpdate) {
-      response = await updateBooking(bookingToUpdate._id, submitData);
+      await updateBooking(bookingToUpdate._id, submitData);
     } else {
-      response = await create(submitData);
+      await create(submitData);
     }
 
-    if (response.status === 200 || response.status === 201) {
-      await fetchAllBooking();
-      setFormIsShown(false);
-    }
+    setFormIsShown(false);
     setIsSubmitting(false);
+    navigate("/booking-list");
   };
 
   return (
     <>
       <h2>{bookingToUpdate ? "Update Your Ticket" : "Book Your Ticket"}</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="movieName">Name</label>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
-          value={formData.movieName}
-          onChange={handleChange} />
+          value={formData.name}
+          onChange={handleChange}
+        />
 
         <label htmlFor="date">Date</label>
         <input
@@ -94,12 +122,11 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           <option value="00:15">00:15</option>
         </select>
 
-
- <label htmlFor="movieId">movie</label>
+        <label htmlFor="movieId">Movie</label>
         <select
           id="movieId"
           name="movieId"
-          value={formData.movieid}
+          value={formData.movieId}
           onChange={handleChange}
           required
         >
@@ -124,9 +151,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           <option value="68a56f0d0fdd4b71a3b515d7">Frozen II</option>
           <option value="68a56f0d0fdd4b71a3b515d8">Moana</option>
           <option value="68a56f0d0fdd4b71a3b515d9">Cinderella</option>
-          
         </select>
-
 
         <CinemaBooking
           movie={{ name: formData.movieName }}
@@ -134,15 +159,10 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           onSeatSelect={handleSeatSelect}
         />
 
-        <button type="submit" onClick={()=> navigate('/booking-list')}>
+        <button type="submit">
           {isSubmitting
-            ? bookingToUpdate
-              ? "Updating..."
-              : "Submitting..."
-            : bookingToUpdate
-              ? "Update"
-              : "Submit"}
-
+            ? bookingToUpdate ? "Updating..." : "Submitting..."
+            : bookingToUpdate ? "Update" : "Submit"}
         </button>
 
         {isSubmitting && <PulseLoader />}
