@@ -18,7 +18,7 @@
 }
 
 .movie-card {
-  width: 200px;
+  width: 80%;
   background: #111;
   border-radius: 10px;
   overflow: hidden;

@@ -13,13 +13,13 @@ const MoviesDisplay = () => {
       const response = await fetchAllMovies();
       console.log("movies payload:", response.data);
 
-      // Handle both array and object with movies key
+
       if (Array.isArray(response.data)) {
         setMovies(response.data);
       } else if (response.data && Array.isArray(response.data.movies)) {
         setMovies(response.data.movies);
       } else {
-        setMovies([]); // fallback
+        setMovies([]); 
       }
     } catch (error) {
       console.error("Failed to fetch movies:", error);

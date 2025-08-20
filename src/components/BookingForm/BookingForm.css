@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  background-color: #121212;
+  color: #f1f1f1;
+  margin: 0;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+
+.booking-layout {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.booking-form {
+  flex: 1;
+  min-width: 300px;
+  background-color: #1e1e1e;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.booking-form__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.booking-form__label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #cccccc;
+}
+
+.booking-form__input,
+.booking-form__select {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.booking-form__input:focus,
+.booking-form__select:focus {
+  outline: none;
+  background-color: #333333;
+  box-shadow: 0 0 0 2px #7bc47f;
+}
+
+
+.booking-form__button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background-color: #f5c518;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.booking-form__button:hover {
+  background-color: #550d25;
+}
+
+.booking-form__button:disabled {
+  background-color: #4f4f4f;
+  cursor: not-allowed;
+}
+
+
+.booking-form__cinema {
+  flex: 1.5;
+  min-width: 500px;
+  padding: 2.5rem;
+  border-radius: 12px;
+  background-color: #1e1e1e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+
+.booking-form__cinema:hover {
+  transform: scale(1.01);
+}
+
+
+.booking-form__loader {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .booking-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .booking-form,
+  .booking-form__cinema {
+    width: 100%;
+  }
+}
