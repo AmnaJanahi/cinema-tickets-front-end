@@ -4,6 +4,7 @@ import { ClipLoader } from 'react-spinners';
 
 import BookingDeleteButton from './BookingDeleteButton';
 import { getAllBooking as fetchAllBooking } from '../../../lib/api';
+import "./BookingList.css"
 
 
 const movieMap = {
@@ -53,13 +54,13 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
     };
 
     return (
-        <div>
-            <ol>
+         <div className="booking-list">
+            <ol className="booking-list__grid">
                 {bookings.length ? (
                     bookings.map(booking => (
-                        <li key={booking._id}>
+                        <li className="booking-card" key={booking._id}>
                             {/* <p><strong>Name:</strong> {booking.name}</p> */}
-                            <p><strong>Movie:</strong> {movieMap[booking.movieId] || booking.movieId}</p>
+                            <p className="booking-card__movie"><strong>Movie:</strong> {movieMap[booking.movieId] || booking.movieId}</p>
                             <p>
                                 <strong>Date:</strong>{" "}
                                 {new Date(booking.date).toLocaleDateString("en-GB", {
@@ -70,13 +71,14 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
                             </p>
 
                             <p><strong>Time:</strong> {booking.timing}</p>
-                            <p><strong>Seats:</strong> {booking.seat?.join(", ")}</p>
-                            <button onClick={() => handleEditClick(booking)}>Update</button>
-
+                            <p><strong>Seats:</strong> {booking.seat?.join(", ")}</p>     
+                            <div className="booking-card__actions">
+                            <button className="btn" onClick={() => handleEditClick(booking)}>Update</button>
                             <BookingDeleteButton
                                 BookingId={booking._id}
                                 getAllBooking={getAllBooking}
                             />
+                            </div>
                         </li>
                     ))
                 ) : (

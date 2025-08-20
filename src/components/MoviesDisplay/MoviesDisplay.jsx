@@ -9,10 +9,22 @@ const MoviesDisplay = () => {
   const [movies, setMovies] = useState([]);
 
   const getAllMovie = async () => {
-    const response = await fetchAllMovies();
-    console.log("movies payload:", response.data);
+    try {
+      const response = await fetchAllMovies();
+      console.log("movies payload:", response.data);
 
-    setMovies(response.data);
+      // Handle both array and object with movies key
+      if (Array.isArray(response.data)) {
+        setMovies(response.data);
+      } else if (response.data && Array.isArray(response.data.movies)) {
+        setMovies(response.data.movies);
+      } else {
+        setMovies([]); // fallback
+      }
+    } catch (error) {
+      console.error("Failed to fetch movies:", error);
+      setMovies([]);
+    }
   };
 
   useEffect(() => {
@@ -22,17 +34,14 @@ const MoviesDisplay = () => {
   return (
     <div className="movies">
       <ol className="movies__grid">
-        {movies.map((movie) => {
-          return (
+        {movies.length > 0 ? (
+          movies.map((movie) => (
             <li className="movie-card" key={movie._id}>
-              <img className="movie-card__poster" src={movie.image} />
+              <img className="movie-card__poster" src={movie.image} alt={movie.name} />
               <div className="movie-card__body">
                 <h3>{movie.name}</h3>
                 <p>⭐{movie.rating}</p>
                 <p>{movie.description}</p>
-                {console.log(
-                  `the name ${movie.name} {movie.image} the rating ${movie.rating}`
-                )}
                 <button
                   className="movie-card__cta"
                   type="button"
@@ -42,10 +51,13 @@ const MoviesDisplay = () => {
                 </button>
               </div>
             </li>
-          );
-        })}
+          ))
+        ) : (
+          <p>No movies available.</p>
+        )}
       </ol>
     </div>
   );
 };
+
 export default MoviesDisplay;
