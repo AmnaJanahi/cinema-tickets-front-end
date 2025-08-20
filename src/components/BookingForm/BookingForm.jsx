@@ -1,54 +1,58 @@
 import { useState, useEffect } from "react";
-import React from "react";
 import { PulseLoader } from "react-spinners";
-
-import {
-  create,
-  updateBooking,
-  getAllBooking as fetchAllBooking,
-} from "../../../lib/api";
+import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
+import CinemaBooking from "../Cinema/CinemaBooking";
+import { Navigate, useNavigate } from "react-router";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [occupied, setOccupied] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     date: "",
     timing: "",
+    seat: [],
+    movieId:""
   });
-
+  const [availableMovies,setAvailableMovies] = useState()
+  const navigate = useNavigate();
   useEffect(() => {
-    if (bookingToUpdate) {
-      setFormData({ name: bookingToUpdate.name });
+    if (formData.movieId && formData.date && formData.timing) {
+      (async () => {
+        try {
+          const res = await getOccupiedSeats(formData.movieId, formData.date, formData.timing);
+          setOccupied(res.status === 200 ? res.data.occupied : []);
+        } catch (err) {
+          console.error("Error fetching occupied seats:", err);
+          setOccupied([]);
+        }
+      })();
     }
-  }, [bookingToUpdate]);
+  }, [formData.movieId, formData.date, formData.timing]);
 
-  const handelChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
+  const handleSeatSelect = (seats) => setFormData({ ...formData, seat: seats });
+  const handleChange = (event) => setFormData({ ...formData, [event.target.name]: event.target.value });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (isSubmitting) return;
-    setIsSubmitting(true);
 
+    setIsSubmitting(true);
     let response;
+
+    const submitData = { name: formData.movieName, movieId: formData.movieId, date: formData.date, timing: formData.timing, seat: formData.seat };
+
+    console.log('submit data',submitData)
     if (bookingToUpdate) {
-      response = await updateBooking(bookingToUpdate._id, formData);
+      response = await updateBooking(bookingToUpdate._id, submitData);
     } else {
-      response = await create(formData);
+      response = await create(submitData);
     }
 
     if (response.status === 200 || response.status === 201) {
-      setFormData({
-        name: "",
-        date: "",
-        timing: "",
-      });
+      await fetchAllBooking();
       setFormIsShown(false);
-      fetchAllBooking();
     }
-
     setIsSubmitting(false);
   };
 
@@ -56,37 +60,89 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     <>
       <h2>{bookingToUpdate ? "Update Your Ticket" : "Book Your Ticket"}</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="movieName">Name</label>
         <input
           id="name"
           name="name"
-          value={formData.name}
-          onChange={handelChange}
-        />
+          value={formData.movieName}
+          onChange={handleChange} />
+
         <label htmlFor="date">Date</label>
         <input
           id="date"
           name="date"
           type="date"
           value={formData.date}
-          onChange={handelChange}
+          onChange={handleChange}
+          required
         />
+
         <label htmlFor="timing">Timing</label>
-        <input
+        <select
           id="timing"
           name="timing"
           value={formData.timing}
-          onChange={handelChange}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select a time</option>
+          <option value="13:00">13:00</option>
+          <option value="15:30">15:30</option>
+          <option value="17:45">17:45</option>
+          <option value="19:30">19:30</option>
+          <option value="23:00">23:00</option>
+          <option value="00:15">00:15</option>
+        </select>
+
+
+ <label htmlFor="movieId">movie</label>
+        <select
+          id="movieId"
+          name="movieId"
+          value={formData.movieid}
+          onChange={handleChange}
+          required
+        >
+          <option value="">-</option>
+          <option value="68a56f0d0fdd4b71a3b515c6">Top Gun mavrick</option>
+          <option value="68a56f0d0fdd4b71a3b515c7">Zootopia</option>
+          <option value="68a56f0d0fdd4b71a3b515c8">Knives Out</option>
+          <option value="68a56f0d0fdd4b71a3b515c9">The Incredibles</option>
+          <option value="68a56f0d0fdd4b71a3b515ca">Shrek</option>
+          <option value="68a56f0d0fdd4b71a3b515cb">Spider-Man: Into the Spider-Verse</option>
+          <option value="68a56f0d0fdd4b71a3b515cc">Guardians of the Galaxy</option>
+          <option value="68a56f0d0fdd4b71a3b515cd">Avengers: Endgame</option>
+          <option value="68a56f0d0fdd4b71a3b515ce">Jumanji: Welcome to the Jungle</option>
+          <option value="68a56f0d0fdd4b71a3b515cf">The Lion King</option>
+          <option value="68a56f0d0fdd4b71a3b515d0">Aladdin</option>
+          <option value="68a56f0d0fdd4b71a3b515d1">Finding Nemo</option>
+          <option value="68a56f0d0fdd4b71a3b515d2">Coco</option>
+          <option value="68a56f0d0fdd4b71a3b515d3">Harry Potter and the Sorcerer's Stone</option>
+          <option value="68a56f0d0fdd4b71a3b515d4">Jurassic Park</option>
+          <option value="68a56f0d0fdd4b71a3b515d5">Paddington</option>
+          <option value="68a56f0d0fdd4b71a3b515d6">Inception</option>
+          <option value="68a56f0d0fdd4b71a3b515d7">Frozen II</option>
+          <option value="68a56f0d0fdd4b71a3b515d8">Moana</option>
+          <option value="68a56f0d0fdd4b71a3b515d9">Cinderella</option>
+          
+        </select>
+
+
+        <CinemaBooking
+          movie={{ name: formData.movieName }}
+          occupied={occupied}
+          onSeatSelect={handleSeatSelect}
         />
-        {/* adding seats */}
-        <button type="submit">
+
+        <button type="submit" onClick={()=> navigate('/booking-list')}>
           {isSubmitting
             ? bookingToUpdate
               ? "Updating..."
               : "Submitting..."
             : bookingToUpdate
-            ? "Update"
-            : "Submit"}
+              ? "Update"
+              : "Submit"}
+
         </button>
 
         {isSubmitting && <PulseLoader />}
@@ -94,4 +150,5 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     </>
   );
 };
+
 export default BookingForm;
