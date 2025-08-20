@@ -12,12 +12,12 @@ Use the app:
 
 ## Contents
 - [Introduction](#introduction)   
-- Project Features  
-- Technologies Used  
-- Attributions  
-- Core Logic  
-- Future Enhancements  
-- Conclusion  
+- [Project Features](#Project-Features)  
+- [Technologies Used](#Technologies-Used) 
+- [Attributions](#Attributions) 
+- [Core Logic](#Core-Logic)
+- [Future Enhancements](#Future-Enhancements) 
+- [Conclusion](#Conclusion)
 
 ---
 
