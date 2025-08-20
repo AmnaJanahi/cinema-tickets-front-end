@@ -151,7 +151,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           <option value="68a56f0d0fdd4b71a3b515d8">Moana</option>
           <option value="68a56f0d0fdd4b71a3b515d9">Cinderella</option>
         </select>
-
+        
         <CinemaBooking
           movie={{ name: formData.movieName }}
           occupied={occupied}

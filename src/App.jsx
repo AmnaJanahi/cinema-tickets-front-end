@@ -49,6 +49,7 @@ const App = () => {
     <>
       <Router>
         <NavBar onLogout={handleLogout} />
+        <div className="page-content">
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -85,6 +86,7 @@ const App = () => {
               
             } */}
         </Routes>
+        </div>
       </Router>
     </>
   );
