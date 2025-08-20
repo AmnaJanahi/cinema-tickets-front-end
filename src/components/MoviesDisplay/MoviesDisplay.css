@@ -1,4 +1,4 @@
- .movies {
+  .movies {
   min-height: 100vh;
   padding: 96px 24px 40px;
   background: #0a0a0a;
@@ -18,7 +18,7 @@
 }
 
 .movie-card {
-  width: 80%;
+  width: 200px;
   background: #111;
   border-radius: 10px;
   overflow: hidden;
