@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
 import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
+import { Navigate, useNavigate } from "react-router";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,7 +15,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     movieId:""
   });
   const [availableMovies,setAvailableMovies] = useState()
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (formData.movieId && formData.date && formData.timing) {
       (async () => {
@@ -133,7 +134,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           onSeatSelect={handleSeatSelect}
         />
 
-        <button type="submit">
+        <button type="submit" onClick={()=> navigate('/booking-list')}>
           {isSubmitting
             ? bookingToUpdate
               ? "Updating..."
@@ -141,6 +142,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
             : bookingToUpdate
               ? "Update"
               : "Submit"}
+
         </button>
 
         {isSubmitting && <PulseLoader />}
