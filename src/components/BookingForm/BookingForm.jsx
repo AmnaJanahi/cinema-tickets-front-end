@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
-import React from "react";
-import { useParams, useNavigate } from "react-router";
 import { PulseLoader } from "react-spinners";
 import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
-
-
+import { useNavigate } from "react-router";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
-  const navigate = useNavigate();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [occupied, setOccupied] = useState([]);
   const [formData, setFormData] = useState({
@@ -21,7 +16,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     movieName: ""
   });
 
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (bookingToUpdate) {
@@ -33,7 +28,6 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
         movieId: bookingToUpdate.movieId || "",
         movieName: bookingToUpdate.movieName || ""
       });
-
     }
   }, [bookingToUpdate]);
 
