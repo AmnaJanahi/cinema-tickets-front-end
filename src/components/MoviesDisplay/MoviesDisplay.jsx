@@ -11,6 +11,7 @@ const MoviesDisplay = () => {
   const getAllMovie = async () => {
     const response = await fetchAllMovies();
     console.log("movies payload:", response.data);
+
     setMovies(response.data);
   };
 
@@ -24,7 +25,6 @@ const MoviesDisplay = () => {
         {movies.map((movie) => {
           return (
             <>
-                <li key={movie._id || movie.name}></li>
               <img
                 src={movie.image}
                 style={{
@@ -44,7 +44,7 @@ const MoviesDisplay = () => {
               <button
                 type="button"
                 onClick={() =>
-                  navigate(`/booking/${m._id}`)
+                  navigate(`/booking/${movie._id}`)
                 }
               >
                 Book

@@ -8,6 +8,7 @@ import { getAllBooking as fetchAllBooking } from '../../../lib/api'
 
 
 const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
+    
     const [bookings, setBookings] = useState([])
 
     const getAllBooking = async () => {
