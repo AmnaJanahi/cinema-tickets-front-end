@@ -13,17 +13,17 @@ const seats = rows.flatMap((row, rowIndex) =>
 function CinemaBooking({ movie, occupied = [], onSeatSelect }) {
   const [selectedSeats, setSelectedSeats] = useState([])
 
-  const handleSelectedState = (seat) => {
-    const isSelected = selectedSeats.includes(seat)
-    let updatedSeats
-    if (isSelected) {
-      updatedSeats = selectedSeats.filter((s) => s !== seat)
-    } else {
-      updatedSeats = [...selectedSeats, seat]
-    }
-    setSelectedSeats(updatedSeats)
-    onSeatSelect(updatedSeats)
+  const handleSelectedState = (seatId) => {
+  const isSelected = selectedSeats.includes(seatId)
+  let updatedSeats
+  if (isSelected) {
+    updatedSeats = selectedSeats.filter((s) => s !== seatId)
+  } else {
+    updatedSeats = [...selectedSeats, seatId]
   }
+  setSelectedSeats(updatedSeats)
+  onSeatSelect(updatedSeats)
+}
 
   return (
     <div className="Cinema">
