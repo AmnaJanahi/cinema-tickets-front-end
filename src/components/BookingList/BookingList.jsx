@@ -35,7 +35,7 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
                             return (
                                 <>
 
-                                    <p>{booking.name}</p>
+                                    <p>{booking.movieId.name}</p>
 
                                     <button onClick={() => handleEditClick(booking)}>Update</button>
 
