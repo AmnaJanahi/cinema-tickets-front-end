@@ -11,7 +11,7 @@ Use the app:
 ---
 
 ## Contents
-- Introduction  
+- [Introduction] 
 - Project Features  
 - Technologies Used  
 - Attributions  
