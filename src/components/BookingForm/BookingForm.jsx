@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
-import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats, movi } from "../../../lib/api";
+import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
@@ -11,7 +11,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     date: "",
     timing: "",
     seat: [],
-    movieid:""
+    movieId:""
   });
   const [availableMovies,setAvailableMovies] = useState()
 
@@ -39,7 +39,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     setIsSubmitting(true);
     let response;
 
-    const submitData = { name: formData.movieName, id: formData.movieId, date: formData.date, timing: formData.timing, seat: formData.seat };
+    const submitData = { name: formData.movieName, movieId: formData.movieId, date: formData.date, timing: formData.timing, seat: formData.seat };
 
     console.log('submit data',submitData)
     if (bookingToUpdate) {
@@ -98,11 +98,32 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
         <select
           id="movieId"
           name="movieId"
-          value={formData.movieId}
+          value={formData.movieid}
           onChange={handleChange}
           required
         >
-          <option value="68a56f0d0fdd4b71a3b515c6">Top Gun</option>
+          <option value="">-</option>
+          <option value="68a56f0d0fdd4b71a3b515c6">Top Gun mavrick</option>
+          <option value="68a56f0d0fdd4b71a3b515c7">Zootopia</option>
+          <option value="68a56f0d0fdd4b71a3b515c8">Knives Out</option>
+          <option value="68a56f0d0fdd4b71a3b515c9">The Incredibles</option>
+          <option value="68a56f0d0fdd4b71a3b515ca">Shrek</option>
+          <option value="68a56f0d0fdd4b71a3b515cb">Spider-Man: Into the Spider-Verse</option>
+          <option value="68a56f0d0fdd4b71a3b515cc">Guardians of the Galaxy</option>
+          <option value="68a56f0d0fdd4b71a3b515cd">Avengers: Endgame</option>
+          <option value="68a56f0d0fdd4b71a3b515ce">Jumanji: Welcome to the Jungle</option>
+          <option value="68a56f0d0fdd4b71a3b515cf">The Lion King</option>
+          <option value="68a56f0d0fdd4b71a3b515d0">Aladdin</option>
+          <option value="68a56f0d0fdd4b71a3b515d1">Finding Nemo</option>
+          <option value="68a56f0d0fdd4b71a3b515d2">Coco</option>
+          <option value="68a56f0d0fdd4b71a3b515d3">Harry Potter and the Sorcerer's Stone</option>
+          <option value="68a56f0d0fdd4b71a3b515d4">Jurassic Park</option>
+          <option value="68a56f0d0fdd4b71a3b515d5">Paddington</option>
+          <option value="68a56f0d0fdd4b71a3b515d6">Inception</option>
+          <option value="68a56f0d0fdd4b71a3b515d7">Frozen II</option>
+          <option value="68a56f0d0fdd4b71a3b515d8">Moana</option>
+          <option value="68a56f0d0fdd4b71a3b515d9">Cinderella</option>
+          
         </select>
 
 
