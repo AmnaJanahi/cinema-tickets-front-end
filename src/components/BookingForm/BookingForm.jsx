@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
-import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
+import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats, movi } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
@@ -10,7 +10,8 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     name: "",
     date: "",
     timing: "",
-    seat: []
+    seat: [],
+    movieid:""
   });
   const [availableMovies,setAvailableMovies] = useState()
 
@@ -101,7 +102,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           onChange={handleChange}
           required
         >
-          
+          <option value="68a56f0d0fdd4b71a3b515c6">Top Gun</option>
         </select>
 
 
