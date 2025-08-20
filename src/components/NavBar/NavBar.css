@@ -1,0 +1,76 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #000;
+  
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+.menu li {
+  display: inline;
+}
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.menu a:hover {
+  color: #f5c518;
+}
+.menu .logout {
+  margin-left: auto;
+}
+
+.menu button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.menu button:hover {
+  color: #f5c518;
+}
+
+main,
+.app-content,
+#app {
+  padding-top: 64px;
+}

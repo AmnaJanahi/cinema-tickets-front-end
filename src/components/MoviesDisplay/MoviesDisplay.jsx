@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router";
 
 import { getAllMovie as fetchAllMovies } from "../../../lib/api";
+import "./MoviesDisplay.css";
 
 const MoviesDisplay = () => {
   const navigate = useNavigate();
@@ -20,40 +20,32 @@ const MoviesDisplay = () => {
   }, []);
 
   return (
-    <>
-      <ol>
+    <div className="movies">
+      <ol className="movies__grid">
         {movies.map((movie) => {
           return (
-            <>
-              <img
-                src={movie.image}
-                style={{
-                  width: 200,
-                  height: 300,
-                  objectFit: "cover",
-                  display: "block",
-                  borderRadius: 6,
-                }}
-              />
-              <h3>{movie.name}</h3>
-              <p>⭐{movie.rating}</p>
-              <p>{movie.description}</p>
-              {console.log(
-                `the name ${movie.name} {movie.image} the rating ${movie.rating}`
-              )}
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(`/booking/${movie._id}`)
-                }
-              >
-                Book
-              </button>
-            </>
+            <li className="movie-card" key={movie._id}>
+              <img className="movie-card__poster" src={movie.image} />
+              <div className="movie-card__body">
+                <h3>{movie.name}</h3>
+                <p>⭐{movie.rating}</p>
+                <p>{movie.description}</p>
+                {console.log(
+                  `the name ${movie.name} {movie.image} the rating ${movie.rating}`
+                )}
+                <button
+                  className="movie-card__cta"
+                  type="button"
+                  onClick={() => navigate(`/booking/${movie._id}`)}
+                >
+                  Book
+                </button>
+              </div>
+            </li>
           );
         })}
       </ol>
-    </>
+    </div>
   );
 };
 export default MoviesDisplay;
