@@ -63,7 +63,17 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/booking/:movieId" element={<BookingForm />} />
+          <Route
+            path="/booking/:movieId"
+            element={
+              <ProtectedRoute>
+                <BookingForm
+                  setFormIsShown={setFormIsShown}
+                  bookingToUpdate={bookingToUpdate}
+                />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="booking"
             element={
