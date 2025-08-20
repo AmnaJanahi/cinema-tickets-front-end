@@ -23,7 +23,6 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
 
 
 
-  // Populate form when editing
   useEffect(() => {
     if (bookingToUpdate) {
       setFormData({
