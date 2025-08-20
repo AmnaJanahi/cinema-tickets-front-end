@@ -1,0 +1,68 @@
+.auth-page {
+  height: 100vh;
+  width: 100%;
+  background: url("../public/images/cinema-bg.jpg")
+    no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.auth-form {
+  max-width: 360px;
+  margin: 120px auto;
+  padding: 32px 28px;
+  background: #0a0a0a;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #7a7c79;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #7a7c79;
+  box-shadow: 0 0 6px #565955;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  background: #7a7c79;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.1s ease-in-out;
+}
+
+.auth-form button:hover {
+  background: #4e504d;
+}
+
+.auth-form button:active {
+  transform: translateY(1px);
+}

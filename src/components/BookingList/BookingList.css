@@ -1,0 +1,70 @@
+.booking-list {
+  min-height: 100vh;
+  padding: 96px 24px 40px;
+  background: linear-gradient(135deg, #0a0a0a, #1c1c1c, #2a2a2a);
+  color: #eaeaea;
+  box-sizing: border-box;
+}
+
+.booking-list__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.booking-card {
+  background: #111;
+  border: 1px solid #1f1f1f;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.booking-card__movie {
+  color: #fff;
+  font-size: 1.02rem;
+  margin: 0 0 6px;
+}
+
+.booking-card p {
+  margin: 6px 0;
+  color: #d9d9d9;
+  font-size: 0.95rem;
+}
+
+.booking-card strong {
+  color: #7a7c79;
+  font-weight: 700;
+}
+
+.booking-card__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn {
+  padding: 8px 12px;
+  background: #7a7c79;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.btn-delete {
+  padding: 8px 12px;
+  background: #550d25;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
