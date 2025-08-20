@@ -1,62 +1,52 @@
-import React from 'react'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { ClipLoader } from 'react-spinners'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router";
+import { ClipLoader } from 'react-spinners';
 
-import BookingDeleteButton from './BookingDeleteButton'
-import { getAllBooking as fetchAllBooking } from '../../../lib/api'
-
+import BookingDeleteButton from './BookingDeleteButton';
+import { getAllBooking as fetchAllBooking } from '../../../lib/api';
 
 const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
-    const [bookings, setBookings] = useState([])
+    const [bookings, setBookings] = useState([]);
+    const navigate = useNavigate();
 
     const getAllBooking = async () => {
-        const response = await fetchAllBooking()
-        setBookings(response.data)
-    }
+        const response = await fetchAllBooking();
+        setBookings(response.data);
+    };
 
     useEffect(() => {
-        getAllBooking()
-    }, [])
+        getAllBooking();
+    }, []);
 
     const handleEditClick = (booking) => {
-        setBookingToUpdate(booking)
-        setFormIsShown(true)
-    }
-
+        if (setBookingToUpdate) {
+            setBookingToUpdate(booking);
+            navigate("/booking"); // navigate to BookingForm page
+        } else {
+            console.error("setBookingToUpdate function is missing!");
+        }
+    };
 
     return (
         <div>
             <ol>
-                {
-                    bookings.length
-                        ?
-                        bookings.map(booking => {
-                            return (
-                                <>
-
-                                    <p>{booking.movieId}</p>
-
-                                    <button onClick={() => handleEditClick(booking)}>Update</button>
-
-                                    <BookingDeleteButton
-                                        BookingId={booking._id}
-                                        getAllBooking={getAllBooking}
-                                    />
-
-                                </>
-                            )
-
-
-                        })
-                        :
-                        <ClipLoader
-                            color='#575657ff'
-                        />
-                }
+                {bookings.length ? (
+                    bookings.map(booking => (
+                        <li key={booking._id}>
+                            <p>{booking.movieId}</p>
+                            <button onClick={() => handleEditClick(booking)}>Update</button>
+                            <BookingDeleteButton
+                                BookingId={booking._id}
+                                getAllBooking={getAllBooking}
+                            />
+                        </li>
+                    ))
+                ) : (
+                    <ClipLoader color='#575657ff' />
+                )}
             </ol>
         </div>
-    )
-}
+    );
+};
 
-export default BookingList
+export default BookingList;

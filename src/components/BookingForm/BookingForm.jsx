@@ -40,7 +40,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     setIsSubmitting(true);
     let response;
 
-    const submitData = { name: formData.movieName, movieId: formData.movieId, date: formData.date, timing: formData.timing, seat: formData.seat };
+    const submitData = { name: formData.name, movieId: formData.movieId, date: formData.date, timing: formData.timing, seat: formData.seat };
 
     console.log('submit data',submitData)
     if (bookingToUpdate) {
@@ -64,7 +64,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
         <input
           id="name"
           name="name"
-          value={formData.movieName}
+          value={formData.name}
           onChange={handleChange} />
 
         <label htmlFor="date">Date</label>
@@ -99,7 +99,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
         <select
           id="movieId"
           name="movieId"
-          value={formData.movieid}
+          value={formData.movieId}
           onChange={handleChange}
           required
         >
@@ -129,7 +129,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
 
 
         <CinemaBooking
-          movie={{ name: formData.movieName }}
+          movie={{ name: formData.movieId }}
           occupied={occupied}
           onSeatSelect={handleSeatSelect}
         />
