@@ -80,7 +80,7 @@ const App = () => {
             element={
               <BookingList
                 setFormIsShown={setFormIsShown}
-                bookingToUpdate={bookingToUpdate}
+      setBookingToUpdate={setBookingToUpdate}
               />
             }
           />
@@ -101,3 +101,4 @@ const App = () => {
 };
 
 export default App;
+
