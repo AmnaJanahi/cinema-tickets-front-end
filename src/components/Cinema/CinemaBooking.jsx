@@ -2,7 +2,13 @@ import './CinemaBooking.css'
 import React, { useState } from 'react'
 import clsx from 'clsx'
 
-const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
+const rows = ['A','B','C','D','E','F','G','H']
+const seats = rows.flatMap((row, rowIndex) =>
+  Array.from({ length: 8 }, (_, colIndex) => ({
+    id: row + (colIndex + 1),
+    index: rowIndex * 8 + colIndex
+  }))
+)
 
 function CinemaBooking({ movie, occupied = [], onSeatSelect }) {
   const [selectedSeats, setSelectedSeats] = useState([])
