@@ -8,11 +8,9 @@ import CinemaBooking from "../Cinema/CinemaBooking";
 
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
-  const { movieId } = useParams(); 
   const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [movie, setMovie] = useState(null);
   const [occupied, setOccupied] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -86,7 +84,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
       await create(submitData);
     }
 
-    setFormIsShown(false);
+    // setFormIsShown(false);
     setIsSubmitting(false);
     navigate("/booking-list");
   };
