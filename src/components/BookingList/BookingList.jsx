@@ -60,7 +60,15 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
                         <li key={booking._id}>
                             <p><strong>Name:</strong> {booking.name}</p>
                             <p><strong>Movie:</strong> {booking.movieName || booking.movieId}</p>
-                            <p><strong>Date:</strong> {booking.date}</p>
+                            <p>
+                                <strong>Date:</strong>{" "}
+                                {new Date(booking.date).toLocaleDateString("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric"
+                                })}
+                            </p>
+                            
                             <p><strong>Time:</strong> {booking.timing}</p>
                             <p><strong>Seats:</strong> {booking.seat?.join(", ")}</p>                            <button onClick={() => handleEditClick(booking)}>Update</button>
 
