@@ -18,7 +18,6 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
 
   const navigate = useNavigate();
 
-  // Populate form when editing
   useEffect(() => {
     if (bookingToUpdate) {
       setFormData({

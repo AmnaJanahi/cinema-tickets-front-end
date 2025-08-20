@@ -58,8 +58,8 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
                 {bookings.length ? (
                     bookings.map(booking => (
                         <li key={booking._id}>
-                            <p><strong>Name:</strong> {booking.name}</p>
-                            <p><strong>Movie:</strong> {booking.movieName || booking.movieId}</p>
+                            {/* <p><strong>Name:</strong> {booking.name}</p> */}
+                            <p><strong>Movie:</strong> {movieMap[booking.movieId] || booking.movieId}</p>
                             <p>
                                 <strong>Date:</strong>{" "}
                                 {new Date(booking.date).toLocaleDateString("en-GB", {
@@ -68,7 +68,7 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
                                     year: "numeric"
                                 })}
                             </p>
-                            
+
                             <p><strong>Time:</strong> {booking.timing}</p>
                             <p><strong>Seats:</strong> {booking.seat?.join(", ")}</p>                            <button onClick={() => handleEditClick(booking)}>Update</button>
 
