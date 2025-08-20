@@ -15,7 +15,7 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
     movieId:""
   });
   const [availableMovies,setAvailableMovies] = useState()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     if (formData.movieId && formData.date && formData.timing) {
       (async () => {
