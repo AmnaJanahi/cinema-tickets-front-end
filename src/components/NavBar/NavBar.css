@@ -6,7 +6,7 @@ body,
   width: 100%;
 }
 
-/* ✅ Navbar styles */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -74,7 +74,7 @@ body,
   color: #f5c518;
 }
 
-/* ✅ New: only push page content down, not everything */
+
 .page-content {
-  padding-top: 64px; /* equal to navbar height */
+  padding-top: 64px; 
 }
