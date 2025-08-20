@@ -70,7 +70,8 @@ const BookingList = ({ setFormIsShown, setBookingToUpdate }) => {
                             </p>
 
                             <p><strong>Time:</strong> {booking.timing}</p>
-                            <p><strong>Seats:</strong> {booking.seat?.join(", ")}</p>                            <button onClick={() => handleEditClick(booking)}>Update</button>
+                            <p><strong>Seats:</strong> {booking.seat?.join(", ")}</p>
+                            <button onClick={() => handleEditClick(booking)}>Update</button>
 
                             <BookingDeleteButton
                                 BookingId={booking._id}
