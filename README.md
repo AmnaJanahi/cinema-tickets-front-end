@@ -9,6 +9,9 @@
 Use the app:  
 
 ---
+<img width="1839" height="1038" alt="image" src="https://github.com/user-attachments/assets/93fc15ee-7bb0-4821-bdf0-3cb96227f272" />
+<img width="1805" height="1024" alt="image" src="https://github.com/user-attachments/assets/1daf0b2b-bde3-4ac3-84ca-3d0698680c94" />
+<img width="1845" height="1036" alt="image" src="https://github.com/user-attachments/assets/3f5a524d-4f5a-4813-a459-a0cdbffdab66" />
 
 ## Contents
 - [Introduction](#introduction)   
