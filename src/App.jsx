@@ -15,6 +15,7 @@ import BookingForm from "./components/BookingForm/BookingForm";
 import BookingList from "./components/BookingList/BookingList";
 import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
+import MoviesDisplay from "./components/MoviesDisplay/MoviesDisplay";
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -55,6 +56,15 @@ const App = () => {
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route
+            path="/movie"
+            element={
+              <ProtectedRoute>
+                <MoviesDisplay />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/booking/:movieId" element={<BookingForm />} />
+          <Route
             path="booking"
             element={
               <ProtectedRoute>
@@ -70,7 +80,7 @@ const App = () => {
             element={
               <BookingList
                 setFormIsShown={setFormIsShown}
-      setBookingToUpdate={setBookingToUpdate}
+                setBookingToUpdate={setBookingToUpdate}
               />
             }
           />
@@ -91,4 +101,3 @@ const App = () => {
 };
 
 export default App;
-

@@ -3,6 +3,7 @@ import { PulseLoader } from "react-spinners";
 import { create, updateBooking, getAllBooking as fetchAllBooking, getOccupiedSeats } from "../../../lib/api";
 import CinemaBooking from "../Cinema/CinemaBooking";
 import { useNavigate } from "react-router";
+import './BookingForm.css'
 
 const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,31 +84,37 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
   };
 
   return (
-    <>
-      <h2>{bookingToUpdate ? "Update Your Ticket" : "Book Your Ticket"}</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
+    <div className="booking-layout">
+      <form className="booking-form" onSubmit={handleSubmit}>
+        <h2 className="booking-form__title">
+          {bookingToUpdate ? "Update Your Ticket" : "Book Your Ticket"}
+        </h2>
+
+        <label className="booking-form__label" htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
+          className="booking-form__input"
           value={formData.name}
           onChange={handleChange}
         />
 
-        <label htmlFor="date">Date</label>
+        <label className="booking-form__label" htmlFor="date">Date</label>
         <input
           id="date"
           name="date"
           type="date"
+          className="booking-form__input"
           value={formData.date}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="timing">Timing</label>
+        <label className="booking-form__label" htmlFor="timing">Timing</label>
         <select
           id="timing"
           name="timing"
+          className="booking-form__select"
           value={formData.timing}
           onChange={handleChange}
           required
@@ -121,10 +128,11 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           <option value="00:15">00:15</option>
         </select>
 
-        <label htmlFor="movieId">Movie</label>
+        <label className="booking-form__label" htmlFor="movieId">Movie</label>
         <select
           id="movieId"
           name="movieId"
+          className="booking-form__select"
           value={formData.movieId}
           onChange={handleChange}
           required
@@ -152,22 +160,25 @@ const BookingForm = ({ setFormIsShown, bookingToUpdate }) => {
           <option value="68a56f0d0fdd4b71a3b515d9">Cinderella</option>
         </select>
 
-        <CinemaBooking
-          movie={{ name: formData.movieName }}
-          occupied={occupied}
-          onSeatSelect={handleSeatSelect}
-        />
-
-        <button type="submit">
+        <button type="submit" className="booking-form__button">
           {isSubmitting
             ? bookingToUpdate ? "Updating..." : "Submitting..."
             : bookingToUpdate ? "Update" : "Submit"}
         </button>
 
-        {isSubmitting && <PulseLoader />}
+        {isSubmitting && <PulseLoader className="booking-form__loader" />}
       </form>
-    </>
+
+      <div className="booking-form__cinema">
+        <CinemaBooking
+          movie={{ name: formData.movieName }}
+          occupied={occupied}
+          onSeatSelect={handleSeatSelect}
+        />
+      </div>
+    </div>
   );
+
 };
 
 export default BookingForm;

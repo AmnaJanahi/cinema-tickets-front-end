@@ -1,5 +1,6 @@
 import React from 'react'
 import { deleteBooking } from '../../../lib/api'
+import "./BookingList.css"
 
 const BookingDeleteButton = ({ BookingId, getAllBooking }) => {
   console.log(BookingId)
@@ -10,7 +11,7 @@ const BookingDeleteButton = ({ BookingId, getAllBooking }) => {
   }
 
   return (
-    <button onClick={handleDelete}>Delete</button>
+    <button className="btn-delete" onClick={handleDelete}>Delete</button>
   )
 }
 

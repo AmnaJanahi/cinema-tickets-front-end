@@ -56,20 +56,22 @@ body {
 }
 
 .Cinema {
-  margin-bottom: 18px;
-  perspective: 400px;
-
+  width: 100%;
+  max-width: 650px;  
+  perspective: 700px;
   display: grid;
   place-items: center;
-  grid-gap: 24px;
+  gap: 36px; 
+  padding: 1rem 0;
 }
 
 .Cinema .screen {
-  height: 70px;
-  background: white;
+  height: 100px;
   width: 100%;
-  transform: rotateX(-30deg) scale(1.1);
-  box-shadow: 0 3px 10px 2px;
+  background: white;
+  transform: rotateX(-30deg) scale(1.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
 }
 
 .Cinema .seats {
@@ -77,6 +79,8 @@ body {
   grid-gap: 6px;
   grid-template-columns: repeat(8, min-content);
   align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 .Cinema .seats .seat:nth-of-type(8n + 2) {
